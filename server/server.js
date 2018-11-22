@@ -28,11 +28,11 @@ io.on('connection', (socket) => {
   //   createdAt: 123
   // });
 
-  socket.emit('newMessage', {
-    from: 'jon@blah.co',
-    text: 'They rise at dawn',
-    createdAt: 666
-  });
+  // socket.emit('newMessage', {
+  //   from: 'jon@blah.co',
+  //   text: 'They rise at dawn',
+  //   createdAt: 666
+  // });
 
   // socket.on('createEmail', (newEmail)=>{
   //   console.log('create email', newEmail);
@@ -40,10 +40,10 @@ io.on('connection', (socket) => {
 
   socket.on('createMessage', (newMessage) =>{
     console.log(newMessage);
-    socket.emit('newMessage', {
-      from: newMessage.email,
+    io.emit('newMessage', {
+      from: newMessage.from,
       text: newMessage.text,
-      createdAt: 777
+      createdAt: new Date().getTime()
     });
   });
 
