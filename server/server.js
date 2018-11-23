@@ -38,6 +38,20 @@ io.on('connection', (socket) => {
   //   console.log('create email', newEmail);
   // });
 
+  //Welcome new user
+  socket.emit('newMessage', {
+    from: "Admin",
+    text: "Welcome To The App",
+    createdAt: new Date().getTime()
+  });
+  //Tell users new person has joined
+  socket.broadcast.emit('newMessage',{
+    from: "Admin",
+    text: "A new user has joined the coven",
+    createdAt: new Date().getTime()
+  });
+
+
   socket.on('createMessage', (newMessage) =>{
     console.log(newMessage);
     io.emit('newMessage', {
@@ -45,6 +59,13 @@ io.on('connection', (socket) => {
       text: newMessage.text,
       createdAt: new Date().getTime()
     });
+
+    // //Broadcast example.
+    // socket.broadcast.emit('newMessage',{
+    //   from: newMessage.from,
+    //   text: newMessage.text,
+    //   createdAt: new Date().getTime()
+    // });
   });
 
   socket.on('disconnect', () => {

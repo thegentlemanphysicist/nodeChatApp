@@ -6,11 +6,13 @@ socket.on('connect', function () {
   //   to: 'jen@test.ca',
   //   text: 'Hey Guuuuurl What up?'
   // });
-  // socket.emit('createMessage', {
-  //   from: 'me@me.me',
-  //   text: 'The quality of mercy is not strained'
-  // });
+  socket.emit('createMessage', {
+    from: 'me@me.me',
+    text: 'The quality of mercy is not strained'
+  });
 });
+
+
 
 socket.on('disconnect', function () {
   console.log('disconnected from server');
