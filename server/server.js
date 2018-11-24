@@ -3,6 +3,7 @@ const path = require('path');
 const express = require('express');
 const socketIO = require('socket.io');
 
+const {generateMessage} = require('./utils/message');
 
 var app = express();
 const port = process.env.PORT || 3004;
@@ -39,26 +40,14 @@ io.on('connection', (socket) => {
   // });
 
   //Welcome new user
-  socket.emit('newMessage', {
-    from: "Admin",
-    text: "Welcome To The App",
-    createdAt: new Date().getTime()
-  });
+  socket.emit('newMessage', generateMessage("Admin","Welcome To The App"));
   //Tell users new person has joined
-  socket.broadcast.emit('newMessage',{
-    from: "Admin",
-    text: "A new user has joined the coven",
-    createdAt: new Date().getTime()
-  });
+  socket.broadcast.emit('newMessage',generateMessage("Admin","A new user has joined the coven"));
 
 
   socket.on('createMessage', (newMessage) =>{
     console.log(newMessage);
-    io.emit('newMessage', {
-      from: newMessage.from,
-      text: newMessage.text,
-      createdAt: new Date().getTime()
-    });
+    io.emit('newMessage', generateMessage(newMessage.from,newMessage.text)); 
 
     // //Broadcast example.
     // socket.broadcast.emit('newMessage',{
