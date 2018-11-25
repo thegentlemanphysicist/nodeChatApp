@@ -6,10 +6,10 @@ socket.on('connect', function () {
   //   to: 'jen@test.ca',
   //   text: 'Hey Guuuuurl What up?'
   // });
-  socket.emit('createMessage', {
-    from: 'me@me.me',
-    text: 'The quality of mercy is not strained'
-  });
+  // socket.emit('createMessage', {
+  //   from: 'me@me.me',
+  //   text: 'The quality of mercy is not strained'
+  // });
 });
 
 
@@ -21,6 +21,13 @@ socket.on('disconnect', function () {
 // socket.on('newEmail', function(email) {
 //   console.log('New Email', email);
 // });
+socket.emit('createMessage',{
+  from: 'Frank',
+  text: 'This is a message'
+}, function (data) {
+  console.log('Got it!',data);
+});
+
 
 socket.on('newMessage', function(message) {
   console.log('New Message', message);

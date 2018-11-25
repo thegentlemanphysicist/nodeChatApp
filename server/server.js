@@ -45,10 +45,10 @@ io.on('connection', (socket) => {
   socket.broadcast.emit('newMessage',generateMessage("Admin","A new user has joined the coven"));
 
 
-  socket.on('createMessage', (newMessage) =>{
-    console.log(newMessage);
+  socket.on('createMessage', (newMessage, callback) =>{
+    console.log('created message:',newMessage);
     io.emit('newMessage', generateMessage(newMessage.from,newMessage.text)); 
-
+    callback("This if from the server!");
     // //Broadcast example.
     // socket.broadcast.emit('newMessage',{
     //   from: newMessage.from,
