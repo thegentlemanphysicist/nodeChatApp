@@ -49,14 +49,12 @@ io.on('connection', (socket) => {
     console.log('created message:',newMessage);
     io.emit('newMessage', generateMessage(newMessage.from,newMessage.text)); 
     callback("This if from the server!");
-    // //Broadcast example.
-    // socket.broadcast.emit('newMessage',{
-    //   from: newMessage.from,
-    //   text: newMessage.text,
-    //   createdAt: new Date().getTime()
-    // });
   });
 
+  socket.on('createLocationMessage', (coords) =>{
+    io.emit('newMessage', generateMessage('Admin', 
+    `${coords.latitude}, ${coords.longitude}`));
+  });
   socket.on('disconnect', () => {
     console.log('disconnected from server');
   });
