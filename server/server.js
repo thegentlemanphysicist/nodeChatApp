@@ -39,15 +39,18 @@ io.on('connection', (socket) => {
   //   console.log('create email', newEmail);
   // });
 
-  //Welcome new user
-  socket.emit('newMessage', generateMessage("Admin","Welcome To The App"));
-  //Tell users new person has joined
-  socket.broadcast.emit('newMessage',generateMessage("Admin","A new user has joined the coven"));
+  
 
   socket.on('join', (params, callback) => {
     if (!isRealString(params.name) || !isRealString(params.room)) {
       callback('Name and room name are required');
     }
+
+    socket.join(params.room);
+    //Welcome new user
+    socket.emit('newMessage', generateMessage("Admin","Welcome To The App"));
+    //Tell users new person has joined
+    socket.broadcast.to(params.room).emit('newMessage',generateMessage("Admin",`${params.name} user has joined the coven`));
     callback();
   });
 
