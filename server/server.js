@@ -76,6 +76,7 @@ io.on('connection', (socket) => {
       coords.latitude, coords.longitude));
     }
   });
+  
   socket.on('disconnect', () => {
     var user = users.removeUser(socket.id);
     if (user) {
